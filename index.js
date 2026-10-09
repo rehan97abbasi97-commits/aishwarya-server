@@ -1,9 +1,11 @@
 const express = require("express");
+const mongoose=require("mongoose");
 const StudentController = require("./app/controller/StudentController");
-
+mongoose.connect("mongodb://localhost:27017/StudentDB");
 const PORT = 8000;
 
 const app = express();
+app.use(express.json());
 
 app.get("/",(reqest,response)=>{
     response.send("Welcome.")

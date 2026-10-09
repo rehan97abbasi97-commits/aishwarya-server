@@ -1,28 +1,46 @@
+const { request } = require("express");
+const StudentModel = require("../model/StudentModel");
+
 const StudentController = {
-    create(reqest, response) {
+    
+    async create(reqest, response) {
+        const body=reqest.body
+        await StudentModel.create(body)
         response.send({
             message: "Success! New record created.",
-            // reqBody: body
+            reqBody: body
         })
     },
-    readAll(request, response) {
+    async readAll(request, response) {
+        const students=await StudentModel.find() 
+        
         response.send({
-            message: "Success! 46record found."
+            message: "Success! 46record found.",
+            data: students
         })
     },
-    readOne(request, response) {
-        const params = request.parems;
+    async readOne(request, response) {
+        const params = request.params;
+        const studentsDetails= await StudentModel.findById(params.id)
         response.send({
-            message: "Success! Student details found."
+            message: "Success! Student details found.",
+            data: studentsDetails
         })
         // params:params
     },
-    update(request, response) {
+    async update(request, response) {
+        const params = request.params
+        const body = request.body
+
+        await StudentModel.findByIdAndUpdate(params.id,body)
         response.send({
             message: "Success! Record has been updated."
         })
     },
-    destroy(request, response) {
+
+    async destroy(request, response) {
+        const params=request.params
+        await StudentModel.findByIdAndDelete(params.id)
         response.send({
             message: "Success! Record has been deleted."
         })
