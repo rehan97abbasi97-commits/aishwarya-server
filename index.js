@@ -1,4 +1,5 @@
 const express = require("express");
+// import express from "express"
 const mongoose=require("mongoose");
 const StudentController = require("./app/controller/StudentController");
 mongoose.connect("mongodb://localhost:27017/StudentDB");
